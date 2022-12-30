@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <title>Spring MVC</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <form action="#" th:object="${employees}" method="post" th:action="@{/update}">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" th:field="*{name}"/>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" th:field="*{email}"/>
+            </div>
+            <div class="form-group">
+                <label>Skills</label>
+                <input type="text" class="form-control" th:field="*{skills}"/>
+            </div>
+            <div class="form-group">
+                <label>CV</label>
+                <input type="text" class="form-control" th:field="*{cv}"/>
+            </div>
+            <div class="form-group">
+                <label>Linkedin</label>
+                <input type="text" class="form-control" th:field="*{linkedin}"/>
+            </div>
+            <div class="form-group">
+                <label>Level</label>
+                <input type="text" class="form-control" th:field="*{level}"/>
+            </div>
+            <br>
+            <input type="hidden" th:field="*{id}"/>
+            <a class="btn btn-success" th:href="@{/}">Back</a>
+        </form>
+    </div>
+</div>
+
+<script src="webjars/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+</body>
+</html>
