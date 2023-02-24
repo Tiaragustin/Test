@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <title>Spring MVC</title>
+</head>
+<body>
+<div class="container p-3">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card" style="border: 3px solid">
+                <div class="card-body">
+                    <h4>CREATE USER</h4>
+                    <br/><br/>
+                    <form action="#" th:action="@{/save}" th:object="${users}" method="post">
+                        <table style="border: none">
+                            <tbody>
+                            <tr>
+                                <td><label>Nama</label></td>
+                                <td>
+                                    <input style="width: 300px; border: 3px solid" type="text" name="name"  th:field="*{name}">
+                                    <br/>
+                                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br/><label>No Hp</label></td>
+                                <td>
+                                    <br/><input style="width: 300px; border: 3px solid" type="text" name="noHp" th:field="*{noHp}" >
+                                    <br/>
+                                    <p th:if="${#fields.hasErrors('noHp')}" th:errors="*{noHp}" class="alert alert-danger"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br/><label>Email</label></td>
+                                <td>
+                                    <br/><input style="width: 300px; border: 3px solid" type="text" name="email" th:field="*{email}">
+                                    <br/>
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br/><label>Alamat</label></td>
+                                <td>
+                                    <br/><input style="width: 300px; border: 3px solid" type="text" name="alamat" th:field="*{alamat}">
+                                    <a class="btn btn-outline-dark" style="border: 3px solid" th:href="@{'/address'}">+</a>
+                                    <br/>
+                                    <p th:if="${#fields.hasErrors('alamat')}" th:errors="*{alamat}" class="alert alert-danger"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br/></td>
+                                <td>
+                                    <br/><input style="width: 300px; border: 3px solid" type="text" name="alamat" th:field="*{alamat}">
+                                    <a class="btn btn-outline-dark" style="border: 3px solid" th:href="@{'/createUser'}">-</a>
+                                    <br/>
+                                    <p th:if="${#fields.hasErrors('alamat')}" th:errors="*{alamat}" class="alert alert-danger"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br/></td>
+                                <td>
+                                    <br/><input style="width: 300px; border: 3px solid" type="text" name="alamat" th:field="*{alamat}">
+                                    <a class="btn btn-outline-dark" style="border: 3px solid" th:href="@{'/createUser'}">-</a>
+                                    <br/>
+                                    <p th:if="${#fields.hasErrors('alamat')}" th:errors="*{alamat}" class="alert alert-danger"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br/><br/></td>
+                                <td>
+                                    <br/><br/><button class="btn btn-outline-dark" style="border: 3px solid">Create</button>
+                                    <a class="btn btn-outline-dark" style="border: 3px solid" th:href="@{'/'}">Back</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

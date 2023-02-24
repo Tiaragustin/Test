@@ -1,8 +1,15 @@
 package com.example.demo.dto;
 
-public class SearchDto {
-
+public class Search {
     private String keyword;
+
+    public Search() {
+
+    }
+
+    public Search(String keyword) {
+        this.keyword = keyword;
+    }
 
     public String getKeyword() {
         return keyword;

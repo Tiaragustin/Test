@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <title>Spring MVC</title>
+</head>
+<body>
+    <div class = "container">
+        <div class="card" style="border: 3px solid">
+            <div class="card-body">
+                <h4>LIST USER</h4>
+                <br/><br/><br/><br/>
+                <span style="alignment: center; font-weight: bold">There's Currently No Data</span><br/>
+                <span style="alignment: center; font-weight: bold">Please Create by Cliking teh ADD Button Below</span>
+                <br/><br/><br/><br/>
+<!--            </div>-->
+<!--            <div class="card-footer">-->
+                <a class="btn btn-outline-dark" style="border: 3px solid" th:href="@{'/createUser'}">ADD</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,110 +1,95 @@
 package com.example.demo.controllers;
 
-import com.example.demo.dto.SearchDto;
-import com.example.demo.models.Employees;
-import com.example.demo.services.EmployeesService;
+import com.example.demo.dto.Search;
+import com.example.demo.models.Users;
+import com.example.demo.repos.UsersRepo;
+import com.example.demo.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("")
 public class HomeController {
 
     @Autowired
-    EmployeesService employeesService;
+    UsersService usersService;
+
+    @Autowired
+    UsersRepo usersRepo;
 
     @GetMapping("/")
-    public String getEmployees(Model model){
-
-//        return "index";
-        return findPaginated(1, model);
-//        return "redirect:/page{1}";
+    public String home(){
+        return "home";
     }
 
-    @GetMapping("/add")
-    public String add(Model model){
-        model.addAttribute("employees", new Employees());
 
-        return "add";
+    @GetMapping("/getUsers")
+    public String getUsers(Model model){
+        model.addAttribute("search", new Search());
+        model.addAttribute("users", usersService.findAll());
+        return "index";
+    }
+
+    @GetMapping("/createUser")
+    public String createUser(Model model){
+        model.addAttribute("users", new Users());
+
+        return "create";
     }
 
     @PostMapping("/save")
-    public String save(@Valid Employees employees, Errors errors, Model model){
+    public String save(@Valid Users users, Errors errors, Model model){
         if (errors.hasErrors()) {
-            return "add";
+            return "create";
         } else {
-            employeesService.addEmployees(employees);
-            return "redirect:/";
+            usersService.createUser(users);
+            return "redirect:/getUsers";
         }
-
-
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id){
-        employeesService.deleteById(id);
+        usersService.deleteById(id);
 
-        return "redirect:/";
+        return "redirect:/getUsers";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/update/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
-        model.addAttribute("employees", employeesService.findById(id));
+        model.addAttribute("users", usersService.findById(id));
 
-        return "edit";
+        return "update";
     }
 
-    @PostMapping("/update")
-    public String update (Employees employees, Model model){
-        employeesService.updateEmployees(employees);
-
-        return "redirect:/";
+    @PostMapping("/saveUpdate")
+    public String saveUpdate(@Valid Users users, Errors errors, Model model){
+        if (errors.hasErrors()) {
+            return "update";
+        } else {
+            usersService.updateUser(users);
+            return "redirect:/getUsers";
+        }
     }
-
     @PostMapping("/search")
-    public String search(SearchDto searchDto, Model model){
-        model.addAttribute("searchForm", searchDto);
-        model.addAttribute("employees", employeesService.findByName(searchDto.getKeyword()));
-
+    public String search(Search search, Model model){
+        model.addAttribute("search", search);
+        model.addAttribute("users", usersService.findByName(search.getKeyword()));
         return "index";
     }
 
-    @GetMapping("/view/{id}")
-    public String view(@PathVariable("id") Integer id, Model model){
-        model.addAttribute("employees", employeesService.findById(id));
+    @GetMapping("/address")
+    public String address(Model model){
+        model.addAttribute("users", new Users());
 
-        return "view";
-    }
-
-    @GetMapping("/page/{pageNo}")
-    public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Model model) {
-        int pageSize = 5;
-
-        Page<Employees> page = employeesService.findPaginated(pageNo, pageSize);
-        List<Employees> listEmployees = page.getContent();
-
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("listEmployees", listEmployees);
-        model.addAttribute("searchForm", new SearchDto());
-        model.addAttribute("employees", employeesService.findAll());
-
-        return "index";
+        return "address";
     }
 }
-//    @GetMapping("/view")
-//    public ModelMap view(@RequestParam(required = false, value = "id") Employees employees){
-//        return new ModelMap().addAttribute("employees", employees);
-//    }
-
